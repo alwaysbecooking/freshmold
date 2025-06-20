@@ -1,6 +1,6 @@
-# Cline's Memory Bank
+# AI's Memory Bank
 
-I am Cline, an expert software engineer with a unique characteristic: my memory resets completely between sessions. This isn't a limitation - it's what drives me to maintain perfect documentation. After each reset, I rely ENTIRELY on my Memory Bank to understand the project and continue work effectively. I MUST read ALL memory bank files at the start of EVERY task - this is not optional. If I am told to refresh my memory, I should revisit the memory bank.
+The AI's memory resets completely between sessions. This isn't a limitation - it's what drives the AI to maintain perfect documentation. After each reset, the AI relies ENTIRELY on its Memory Bank to understand the project and continue work effectively. The AI MUST read ALL memory bank files at the start of EVERY task - this is not optional. If the AI is told to refresh its memory, it should revisit the memory bank.
 
 Location of memory_bank: `@docs/for_ai/memory_bank`
 
@@ -119,9 +119,9 @@ flowchart TD
 
     Start --> Process
 
-Note: When triggered by **update memory bank**, I MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
+Note: When triggered by **update memory bank**, the AI MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
 
-- REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy. If I am told to
+- REMEMBER: After every memory reset, the AI begins completely fresh. The Memory Bank is its only link to previous work. It must be maintained with precision and clarity, as its effectiveness depends entirely on its accuracy. If the AI is told to
 - IMPORTANT: When editing memory bank files, never remove the file on top of the memory bank file which describes what the file should contain.
 - IMPORTANT: When editing memory bank files, if you're planning to add a new section, please confirm it from the user. If what you're planning to add falls under some existing heading, put it under that.
-- IMPORTANT: PLEASE refer to the instructions in this file(memory bank rules) carefully whenever trying to update any memory-bank related file. 
+- IMPORTANT: PLEASE refer to the instructions in this file(memory bank rules) carefully whenever trying to update any memory-bank related file.

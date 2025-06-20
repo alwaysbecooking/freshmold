@@ -15,9 +15,9 @@ This rule defines the standard location, naming convention, and content guidelin
 5. If asked to create a directory for the feature, just follow the same naming conventions and split the different parts of the feature into relevant files with relevant filenames.
 
 ## Implementation
-- Cline will create brainstorming dump files in the specified location after feature discussions when requested.
-- Cline will use the defined naming convention.
-- Cline will structure the content for clarity and potential context re-injection.
+- The AI will create brainstorming dump files in the specified location after feature discussions when requested.
+- The AI will use the defined naming convention.
+- The AI will structure the content for clarity and potential context re-injection.
 
 ## Benefits
 - Centralized location for feature brainstorming artifacts.

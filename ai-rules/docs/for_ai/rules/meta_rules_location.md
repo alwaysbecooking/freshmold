@@ -1,5 +1,5 @@
 ---
-description: Cline Rules Location Rule
+description: AI Rules Location Rule
 globs: docs/for_ai/rules/*.md
 alwaysApply: false
 ---
@@ -15,7 +15,7 @@ When creating new rules:
 5. Rule files MUST contain proper markdown formatting
 
 ## Implementation
-- Clie will enforce this rule by:
+- The AI will enforce this rule by:
   - Automatically creating rules in the `docs/for_ai/rules` directory
   - Preventing creation of rules outside this directory
   - Maintaining separation of rules into individual files
@@ -43,4 +43,4 @@ docs/for_ai/rules/
   │   └── rules-location.mdc
   └── other-rules/
       └── another-rule.mdc
-``` 
+```
