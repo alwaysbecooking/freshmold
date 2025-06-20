@@ -8,6 +8,7 @@ dependencies = [
     "pydantic>=2.6.0",
     "structlog>=25.4.0",
     "pydantic-settings>=2.9.1",
+    "pytest>=8.4.1",
 ]
 
 [build-system]
@@ -27,3 +28,22 @@ python_classes = "Test*"
 python_functions = "test_*"
 asyncio_mode = "auto"
 mock_use_standalone_module = true
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "I", "W", "C90", "N", "D", "S", "B", "A", "COM", "LOG", "T20", "PYI", "PT", "RSE", "SLF", "RUF"]
+ignore = ["D100", "D104", "D105", "D107", "D203", "D212", "D415"]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+
+[tool.bandit]
+exclude_dirs = ["tests"]

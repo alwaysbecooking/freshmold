@@ -16,15 +16,16 @@ from structlog.typing import Processor
 # from src.<package_name>.log import get_logger
 # logger = get_logger(__name__)
 
+
 def setup_stdlogger():
     """Set up standard logging configuration."""
-    DATEFMT = "%d-%m-%Y %I:%M:%S %p"
-    FORMAT = "[%(name)s] [%(levelname)s] %(message)s"
+    datefmt = "%d-%m-%Y %I:%M:%S %p"
+    format_str = "[%(name)s] [%(levelname)s] %(message)s"
     logging.basicConfig(
-        format=FORMAT,
+        format=format_str,
         stream=sys.stdout,  # https://12factor.net/logs
         level=os.getenv("LOGLEVEL", logging.INFO),
-        datefmt=DATEFMT,
+        datefmt=datefmt,
     )
     # NOTE: We can supress unwanted library logs here
     # logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -53,13 +54,14 @@ def get_structlog_processors() -> Iterable[Processor]:
                 structlog.processors.CallsiteParameter.FILENAME,
                 structlog.processors.CallsiteParameter.FUNC_NAME,
                 structlog.processors.CallsiteParameter.LINENO,
-            }
+            },
         ),
     ]
     if sys.stderr.isatty():
-        return processors + [structlog.dev.ConsoleRenderer()]  # type: ignore
+        return [*processors, structlog.dev.ConsoleRenderer()]  # type: ignore
     else:
-        return processors + [  # type: ignore
+        return [  # type: ignore
+            *processors,
             structlog.processors.dict_tracebacks,
             structlog.processors.JSONRenderer(),
         ]
@@ -82,6 +84,11 @@ def init_logger():
 
 
 def get_logger(name: Optional[str] = None):
+    """
+    Get a structlog logger instance.
+
+    If no name is provided, it attempts to infer the caller's module name.
+    """
     if name is None:
         import inspect
 

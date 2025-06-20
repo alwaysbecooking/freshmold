@@ -8,6 +8,46 @@ image_file := image_name + "_" + image_tag
 default:
 	@just --list
 
+test:
+	python -m pytest -v -s "$@"
+
+# Run the linter to check for issues
+_check-lint:
+    @echo "Linting with Ruff..."
+    @ruff check .
+
+# Run the static type checker
+_check-type:
+    @echo "Type checking with Mypy..."
+    @mypy .
+
+# Run the security scanner
+_check-security:
+    @echo "Scanning for security issues with Bandit..."
+    @bandit -r src
+
+# run code checks
+check: _check-lint _check-type _check-security
+
+# Apply formatting in-place
+_fix-format:
+    @echo "Formatting with Black..."
+    @black .
+
+# Let the linter try to automatically fix issues
+_fix-lint:
+    @echo "Fixing lint issues with Ruff..."
+    @ruff check --fix .
+
+# Let the linter try to automatically fix issues (forced)
+_fix-lint-force:
+    @echo "Fixing lint issues with Ruff..."
+    @ruff check --fix --unsafe-fixes .
+
+# fix everything that can be fixed automatically
+fix: _fix-lint _fix-format
+fix-force: _fix-lint-force _fix-format
+
 # run the worker
 dummy-server:
   uv run server

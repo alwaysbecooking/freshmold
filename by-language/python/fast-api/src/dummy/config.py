@@ -1,14 +1,19 @@
 import os
-from pydantic_settings import BaseSettings
 from enum import StrEnum
+
+from pydantic_settings import BaseSettings
 
 
 class Environment(StrEnum):
+    """Enumeration for application environments."""
+
     PRODUCTION = "production"
     DEVELOPMENT = "development"
 
 
 class Settings(BaseSettings):
+    """Application settings."""
+
     app_env: str = os.getenv("APP_ENV", Environment.DEVELOPMENT)
     debug: bool = app_env == Environment.DEVELOPMENT
     reload: bool = app_env == Environment.DEVELOPMENT
@@ -24,7 +29,6 @@ class Settings(BaseSettings):
     # API settings
     cors_allow_origins: list[str] = os.getenv("CORS_ALLOW_ORIGINS", "*").split(",")
     api_v1_prefix: str = os.getenv("API_V1_PREFIX", "/api/v1")
-
 
 
 settings = Settings()

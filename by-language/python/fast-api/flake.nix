@@ -89,11 +89,19 @@
               ];
               nativeBuildInputs = [];
               packages = [
+                # typecheck
+                pyPackages.mypy
+
+                # formatting
+                pyPackages.black
+
+                # linting
+                pyPackages.ruff
+                pyPackages.bandit
+
+                # debugging
                 pyPackages.pudb
                 pyPackages.ptpython
-                pyPackages.isort
-                pyPackages.mypy
-                pkgs.ruff
                 # pkgs.memray
               ];
               shellHook = ''

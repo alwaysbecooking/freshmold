@@ -1,17 +1,16 @@
-from typing import Any, Dict
+import time
 from contextlib import asynccontextmanager
+from typing import Dict
 
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-import time
-import uvicorn
 
 from .config import settings
-from .telemetry.log import get_logger, init_logger
 from .routers import (
     cash,
 )
+from .telemetry.log import get_logger, init_logger
 
 init_logger()
 logger = get_logger(__name__)
@@ -21,6 +20,11 @@ HEALTH_CHECK_ENDPOINT = "/healthz"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    Context manager for managing the lifespan of the FastAPI application.
+
+    Initializes and shuts down application resources.
+    """
     logger.info("initializing application")
     yield
     logger.info("shutdown complete")
@@ -44,6 +48,11 @@ app = FastAPI(
 
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
+    """
+    Middleware to log incoming HTTP requests.
+
+    Skips logging for health check endpoint.
+    """
     if request.url.path == HEALTH_CHECK_ENDPOINT:
         return await call_next(request)
 
@@ -61,6 +70,7 @@ async def log_requests(request: Request, call_next):
 
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):
+    """Middleware to add security headers to HTTP responses."""
     response = await call_next(request)
     if settings.enable_security_headers:
         response.headers["X-Content-Type-Options"] = "nosniff"
@@ -74,13 +84,15 @@ async def add_security_headers(request: Request, call_next):
 
 @app.exception_handler(Exception)
 async def global_exception_handler(_: Request, exc: Exception):
+    """Global exception handler to catch and log unhandled exceptions."""
     # logger.info(f"Unhandled exception: {str(exc)}", exc_info=exc)
-    logger.info(f"Unhandled exception: {str(exc)}")
+    logger.info(f"Unhandled exception: {exc!s}")
     return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
 
 @app.get(HEALTH_CHECK_ENDPOINT)
 async def health_check():
+    """Health check endpoint."""
     return {
         "status": "healthy",
         "environment": settings.app_env,
@@ -89,6 +101,7 @@ async def health_check():
 
 @app.get("/")
 async def root() -> Dict[str, str]:
+    """Root endpoint."""
     return {"message": "who's the #1 under18 don?"}
 
 
@@ -97,10 +110,12 @@ app.include_router(cash.router, prefix=settings.api_v1_prefix)
 
 
 def main() -> None:
+    """Run the FastAPI application using Uvicorn."""
     # NOTE: uvicorn handles the signals for us
     uvicorn.run(
         "dummy.main:app",
-        host="0.0.0.0",
+        host="0.0.0.0",  # noqa: S104
+        # S104: intentional for deployment behind a reverse proxy.
         port=8000,
         reload=settings.reload,
         access_log=False,
