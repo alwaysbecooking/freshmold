@@ -1,0 +1,5 @@
+* freshmodl
+requirements: https://cookiecutter.readthedocs.io
+
+See the [[https://github.com/orgs/community/discussions/5336
+][sorry state of github templates]]
