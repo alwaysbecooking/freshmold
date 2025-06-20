@@ -1,8 +1,2 @@
 default:
 	@just --list
-
-# .clinerules is .gitignored
-# copy relevant base .clinerules from our rule bank
-cline-copy-meta-rules:
-	mkdir -p .clinerules
-	cp ./docs/for_ai/rules/meta_* ./.clinerules/

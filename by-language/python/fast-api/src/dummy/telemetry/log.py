@@ -6,6 +6,15 @@ from typing import Iterable, Optional
 import structlog
 from structlog.typing import Processor
 
+# NOTE: Usage
+# In the main init file:
+# from src.<package_name>.log import get_logger, init_logger
+# init_logger()
+# logger = get_logger(__name__)
+#
+# In different files:
+# from src.<package_name>.log import get_logger
+# logger = get_logger(__name__)
 
 def setup_stdlogger():
     """Set up standard logging configuration."""
@@ -17,14 +26,15 @@ def setup_stdlogger():
         level=os.getenv("LOGLEVEL", logging.INFO),
         datefmt=DATEFMT,
     )
-    logging.getLogger("httpx").setLevel(logging.WARNING)
-    logging.getLogger("hamilton.async_driver").setLevel(logging.FATAL)
-    logging.getLogger("hamilton.telemetry").setLevel(logging.WARNING)
-    logging.getLogger("hpack").setLevel(logging.FATAL)
-    logging.getLogger("httpcore").setLevel(logging.FATAL)
-    logging.getLogger("openai").setLevel(logging.FATAL)
-    logging.getLogger("botocore").setLevel(logging.FATAL)
-    logging.getLogger("aiobotocore").setLevel(logging.FATAL)
+    # NOTE: We can supress unwanted library logs here
+    # logging.getLogger("httpx").setLevel(logging.WARNING)
+    # logging.getLogger("hamilton.async_driver").setLevel(logging.FATAL)
+    # logging.getLogger("hamilton.telemetry").setLevel(logging.WARNING)
+    # logging.getLogger("hpack").setLevel(logging.FATAL)
+    # logging.getLogger("httpcore").setLevel(logging.FATAL)
+    # logging.getLogger("openai").setLevel(logging.FATAL)
+    # logging.getLogger("botocore").setLevel(logging.FATAL)
+    # logging.getLogger("aiobotocore").setLevel(logging.FATAL)
 
 
 def get_structlog_processors() -> Iterable[Processor]:
