@@ -179,6 +179,7 @@ Use the `docs/for_ai/reference/feature_brainstorm/*.md` rule
   - If in any case the AI does not have link following
 - [[https://github.com/microsoft/markitdown][Markitdown]]
   - Does not work well with data extraction, it's actually for real just an anything-to-markdown tool
+- https://context7.com/
 
 * that's all
 All the best!
