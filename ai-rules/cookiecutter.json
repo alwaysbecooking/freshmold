@@ -1,6 +1,6 @@
 {
   "docs_path": "docs",
   "_copy_without_render": [
-    "for_ai/reference/third-party-llmtxt/betterauth.llm.txt"
+    "for_ai/*"
   ]
 }
