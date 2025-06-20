@@ -12,6 +12,8 @@ This project-agnostic cookiecutter can be used in a new or existing repository.
 *** Setup
 #+begin_src
 cookiecutter https://github.com/alwaysbecooking/freshmold.git --directory="ai-rules"
+
+cookiecutter --output-dir . --overwrite-if-exists your-partial-docs-template.git
 #+end_src
 *** Management
 - If you have existing files, they'll be overwritten, so better to run this version controlled so you can see the changes this cookie cutter is making.

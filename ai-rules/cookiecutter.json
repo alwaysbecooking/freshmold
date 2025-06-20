@@ -1,4 +1,6 @@
 {
-  "project_name": "My AI Rules Project",
-  "docs_path": "docs"
+  "docs_path": "docs",
+  "_copy_without_render": [
+    "for_ai/reference/third-party-llmtxt/betterauth.llm.txt"
+  ]
 }
