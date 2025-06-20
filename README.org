@@ -1,5 +1,8 @@
 * freshmodl
-requirements: https://cookiecutter.readthedocs.io
+** Requirements
+- https://cookiecutter.readthedocs.io
+- Most of the cookiecutters probably make use of nix, so having working knowledge of nix or willingness to lean into the intricacies of nix is assumed.
+- insanity (we need more insanity)
 
 * Others
 - See the [[https://github.com/orgs/community/discussions/5336

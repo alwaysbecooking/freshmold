@@ -1,2 +1,39 @@
+image_repo := "some_repository"
+image_name := "dummy"
+image_id := "latest"
+platform := if `nix eval --impure --raw --expr 'builtins.currentSystem'` == "x86_64-linux" { "amd64" } else { "arm64" }
+image_tag := image_id + "_" + platform
+image_file := image_name + "_" + image_tag
+
 default:
 	@just --list
+
+# run the worker
+dummy-server:
+  uv run server
+
+docker-build:
+	IMAGE_NAME={{image_repo}}/{{image_name}} \
+	IMAGE_TAG={{image_tag}} \
+	nix build -o ./results/{{image_file}} \
+	--impure --show-trace .#dummy_docker
+
+docker-load:
+	docker load < ./results/{{image_file}}
+
+docker-run:
+	docker run --rm \
+	-it {{image_repo}}/{{image_name}}:{{image_tag}}
+
+docker-push:
+	docker push {{ image_repo }}/{{image_name}}:{{image_tag}}
+
+docker-manifest-push:
+	docker pull "{{ image_repo }}/{{image_name}}:{{image_id}}_amd64"
+	docker pull "{{ image_repo }}/{{image_name}}:{{image_id}}_arm64"
+
+	docker manifest create "{{ image_repo }}/{{ image_name }}:{{ image_id }}" \
+	--amend "{{ image_repo }}/{{ image_name }}:{{ image_id }}_amd64" \
+	--amend "{{ image_repo }}/{{ image_name }}:{{ image_id }}_arm64"
+
+	docker manifest push "{{ image_repo }}/{{ image_name }}:{{ image_id }}"
