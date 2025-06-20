@@ -1,0 +1,59 @@
+* AI-RULES
+Cookie cutter to add AI rules and files for various AI agents.
+
+Currently tested with:
+- cline
+- windsurf
+
+If you're looking for how to do AI assisted coding(this repo follows all the ideas mentioned here), check:
+
+** Usage
+This project-agnostic cookiecutter can be used in a new or existing repository.
+*** Setup
+#+begin_src
+cookiecutter https://github.com/alwaysbecooking/freshmold.git --directory="ai-rules"
+#+end_src
+*** Management
+- If you have existing files, they'll be overwritten, so better to run this version controlled so you can see the changes this cookie cutter is making.
+- This will also fetch all the rules that I maintain over all my projects, you should be able to manually just pick the ones that you need and remove the rest
+- Use the rules as contexts (~@mention~) when trying to enforce certain rule. Otherwise The management of the rules is specific to each AI agent, eg. Cursor follows different convention, windsurf follows a different convention, Amp is different etc. So you can adjust things accordingly. For common rules, I put things under ~.clinerules/~ directory.
+- If you're using a monorepo, you'd be switching back and forth between the rules
+
+Following are ~Justfile/Makefile~ entries based on whichever agent you're using: (Copy manually as per need)
+#+begin_src makefile
+cline-meta-ai-rules:
+	mkdir -p .clinerules
+	rg -F "^.clinerules/$" .gitignore > /dev/null || echo ".clinerules/" >> .gitignore
+	cp ./docs/for_ai/rules/meta_* ./.clinerules/
+#+end_src
+**** AI Ignore files
+AI agents would usually have a file which you can use to instruct about files it should avoid reading. Put the following in it. Eg. for cline, that ~.clineignore~
+#+begin_src
+# Dependencies
+node_modules/
+**/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+/build/
+/dist/
+/out/
+
+# Testing
+/coverage/
+
+# Environment variables
+.env
+.envrc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Large data files
+*.csv
+*.xlsx
+#+end_src
+*** Cleanup
+- If you don’t need support for certain AI agents, feel free to delete their related files after generation.
