@@ -11,10 +11,9 @@ If you're looking for how to do AI assisted coding(this repo follows all the ide
 This project-agnostic cookiecutter can be used in a new or existing repository.
 *** Setup
 #+begin_src
-cookiecutter https://github.com/alwaysbecooking/freshmold.git --directory="ai-rules"
-
-cookiecutter --output-dir . --overwrite-if-exists your-partial-docs-template.git
+cookiecutter --overwrite-if-exists https://github.com/alwaysbecooking/freshmold.git --directory="ai-rules"
 #+end_src
+Make sure the overwites are the things that you want, if not edit the git-diff manually.
 *** Management
 - If you have existing files, they'll be overwritten, so better to run this version controlled so you can see the changes this cookie cutter is making.
 - This will also fetch all the rules that I maintain over all my projects, you should be able to manually just pick the ones that you need and remove the rest
