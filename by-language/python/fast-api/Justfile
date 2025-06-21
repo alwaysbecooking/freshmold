@@ -1,8 +1,8 @@
 default:
 	@just --list
 
-# usage: replace-w-var some_value :
+# usage: replace-w-var {{cookiecutter.project_slug}} {{cookiecutter.project_slug}}
 replace-w-var from to:
-    @echo "Replacing '{{from}}' with '{{to}}'..."
-    @rg -l "dummy" | xargs sd "dummy" "{{cookiecutter.project_slug}}"
-    @echo "Done."
+	@echo "Replacing '{{from}}' with '{{to}}'..."
+	@rg -l "{{from}}" | xargs sd "{{from}}" "{{to}}"
+	@echo "Done."
