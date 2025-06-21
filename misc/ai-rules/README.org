@@ -58,3 +58,4 @@ node_modules/
 #+end_src
 *** Cleanup
 - If you don’t need support for certain AI agents, feel free to delete their related files after generation.
+*** TODO Keeping things in sync
