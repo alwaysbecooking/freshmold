@@ -1,5 +1,9 @@
 {
   "project_slug": "for_ai",
   "docs_path": "docs",
-  "_copy_without_render": []
+  "_copy_without_render": [
+    "memory_bank",
+    "reference",
+    "rules/by-*",
+  ]
 }
