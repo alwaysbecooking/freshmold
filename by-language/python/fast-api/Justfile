@@ -1,4 +1,4 @@
-project_slug = "dummy_project_name" # this should match cookiecutter.json
+project_slug := "dummy_project_name" # this should match cookiecutter.json
 
 default:
 	@just --list
