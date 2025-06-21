@@ -3,6 +3,7 @@ description: Rule for Feature Brainstorming File Location and Content
 globs: docs/for_ai/reference/feature_brainstorm/*.md
 alwaysApply: false
 ---
+sdfdsf
 ## Description
 This rule defines the standard location, naming convention, and content guidelines for feature brainstorming files. These files capture the requirements and implementation ideas discussed during feature development brainstorming sessions.
 

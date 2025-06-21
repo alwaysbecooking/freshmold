@@ -18,9 +18,10 @@ cruft create \
 https://github.com/alwaysbecooking/freshmold.git \
 --directory="misc/ai-rules"
 #+end_src
+- This will create a ~.cruft.json~ file in your newly created directory. You should check this in version control.
+- After the first fetch (~cruft create~), you should manually skim through all the rules and delete the ones that you do not need.
+- Use ~cruft check~, ~cruft diff~ and ~cruft update~. You might need to use ~GIT_PAGER=cat cruft update~ to get the diff view correct. While doing so you have the option to skip new rules, from the diff etc.
 *** Management
-- If you have existing files, they'll be overwritten, so better to run this version controlled so you can see the changes this cookie cutter is making.
-- This will also fetch all the rules that I maintain over all my projects, you should be able to manually just pick the ones that you need and remove the rest
 - Use the rules as contexts (~@mention~) when trying to enforce certain rule. Otherwise The management of the rules is specific to each AI agent, eg. Cursor follows different convention, windsurf follows a different convention, Amp is different etc. So you can adjust things accordingly. For common rules, I put things under ~.clinerules/~ directory.
 - If you're using a monorepo, you'd be switching back and forth between the rules
 
