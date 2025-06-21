@@ -8,7 +8,12 @@ move:
 test-run:
 	cookiecutter . --output-dir . --overwrite-if-exists
 
-replace:
+_check:
+	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just test
+	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just check
+	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just fix
+
+replace: _check
 	#!/bin/bash
 	set -eu
 
@@ -20,17 +25,7 @@ replace:
 	echo "might have to fix few replacements manually, eg. Justfile(we do have a AI rule about that)"
 
 diff-name-only:
-	@rm -rf dummy_project_name/.direnv/
-	@rm -rf dummy_project_name/.mypy_cache
-	@rm -rf dummy_project_name/.ruff_cache
-	@rm -rf dummy_project_name/.venv
-	@rm -rf dummy_project_name/.envrc
-	git diff --no-index --find-renames --name-status "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
+	git diff --find-renames --name-status "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
 
 diff:
-	@rm -rf dummy_project_name/.direnv/
-	@rm -rf dummy_project_name/.mypy_cache
-	@rm -rf dummy_project_name/.ruff_cache
-	@rm -rf dummy_project_name/.venv
-	@rm -rf dummy_project_name/.envrc
-	git diff --no-index --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
+	git diff --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
