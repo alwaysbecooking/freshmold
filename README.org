@@ -7,6 +7,9 @@
 #+begin_quote
 Whenever I find something worth adding to the original template while working on other projects I just update the template. Too bad it'll not update the downstream projects but I am making that tradeoff. I checked [[https://github.com/cruft/cruft][cruft]], but I think once a project takes off from a cookie-cutter/boilerplate, there's no looking back. Just keep making forward progress. There are some cases where consistency is important but the way I develop things that's not the case. So we use plain old cookiecutter.
 #+end_quote
+Following is about creating and maintaining a new cookie cutter.
+- Bootstrap
+  - Just create a directory with a ~cookiecutter.json~ file
 - Write
   - Create a directory where the cookie cutter will live, name it anything.
   - Just write a basic project that works (keep things consistent with some placeholders, so that they can be used to replace later)
