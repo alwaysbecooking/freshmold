@@ -7,11 +7,22 @@
 #+begin_quote
 Whenever I find something worth adding to the original template while working on other projects I just update the template. Too bad it'll not update the downstream projects but I am making that tradeoff. I checked [[https://github.com/cruft/cruft][cruft]], but I think once a project takes off from a cookie-cutter/boilerplate, there's no looking back. Just keep making forward progress. There are some cases where consistency is important but the way I develop things that's not the case. So we use plain old cookiecutter.
 #+end_quote
+- Write
+  - Create a directory where the cookie cutter will live, name it anything.
+  - Just write a basic project that works (keep things consistent with some placeholders, so that they can be used to replace later)
 - Replacement
-  - Once I make sure the project is working with placeholder(usually "dummy")
-  - Then I just ~rg -l "placeholder" | xargs sd "placeholder" "{{cookiecutter.var_name}}"~
-  - cookiecutter is designed to look for a single directory inside your repository that contains Jinja2 template syntax in its name. Once the initial placeholder is replaced with ~rg~ and ~sed~, we'd rename the directory itself. Mostly that would be ~{{cookiecutter.project_slug}}~
-- Testing & Iteration once the cookiecutter is developed:
+  - Make sure the project is working with placeholder(usually "dummy")
+  - Then I just replace
+    - content: ~rg~ and ~sd~
+    - filenames/directories: manual
+  - Finally rename the cookie cutter directory to ~{{cookiecutter.project_slug}}~
+    - cookiecutter is designed to look for a single directory inside your repository that contains Jinja2 template syntax in its name.
+    - Once the initial placeholder is replaced with ~rg~ and ~sed~, we'd rename the directory itself.
+    - Mostly that would be ~{{cookiecutter.project_slug}}~
+- Gotchas
+  - "_copy_without_render"
+  - Files which themselves have templating, eg. ~Justfile~
+- Testing & Iteration once the cookiecutter is developed
   - ~cookiecutter . --output-dir /tmp --replay --overwrite-if-exists~
 * Others
 - See the [[https://github.com/orgs/community/discussions/5336

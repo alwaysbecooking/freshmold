@@ -47,7 +47,7 @@ wheels = [
 ]
 
 [[package]]
-name = "dummy"
+name = "{{cookiecutter.project_slug}}"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

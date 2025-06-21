@@ -113,7 +113,7 @@ def main() -> None:
     """Run the FastAPI application using Uvicorn."""
     # NOTE: uvicorn handles the signals for us
     uvicorn.run(
-        "dummy.main:app",
+        "{{cookiecutter.python_package_name}}.main:app",
         host="0.0.0.0",  # noqa: S104
         # S104: intentional for deployment behind a reverse proxy.
         port=8000,

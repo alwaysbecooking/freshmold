@@ -1,0 +1,11 @@
+* Replacement
+#+begin_src
+rg -l "dummy_project_name" | xargs sd "dummy_project_name" "{{cookiecutter.project_slug}}"
+rg -l "dummy" | xargs sd "dummy" "{{cookiecutter.python_package_name}}"
+#+end_src
+
+* Testing
+Create a sample cookie cutter in the same directory and test things out manually
+#+begin_src
+cookiecutter . --output-dir . --overwrite-if-exists
+#+end_src

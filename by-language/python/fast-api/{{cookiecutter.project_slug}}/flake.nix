@@ -59,12 +59,12 @@
         in
         {
           packages = rec {
-            dummy = uvpythonSet.mkVirtualEnv "env" uvworkspace.deps.default;
-            dummy_docker = pkgs.dockerTools.buildLayeredImage {
+            {{cookiecutter.project_slug}} = uvpythonSet.mkVirtualEnv "env" uvworkspace.deps.default;
+            {{cookiecutter.project_slug}}_docker = pkgs.dockerTools.buildLayeredImage {
               name = builtins.getEnv "IMAGE_NAME";
               tag = builtins.getEnv "IMAGE_TAG";
               contents = [
-                  dummy
+                  {{cookiecutter.project_slug}}
                   pkgs.cacert
                   pkgs.bashInteractive
                   pkgs.coreutils
