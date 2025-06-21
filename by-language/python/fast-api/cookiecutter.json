@@ -1,3 +1,4 @@
 {
-  "project_slug": "butler"
+  "project_slug": "butler",
+  "python_package_name": "butler"
 }

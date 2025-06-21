@@ -10,7 +10,8 @@ Whenever I find something worth adding to the original template while working on
 - Replacement
   - Once I make sure the project is working with placeholder(usually "dummy")
   - Then I just ~rg -l "placeholder" | xargs sd "placeholder" "{{cookiecutter.var_name}}"~
-- Testing:
+  - cookiecutter is designed to look for a single directory inside your repository that contains Jinja2 template syntax in its name. Once the initial placeholder is replaced with ~rg~ and ~sed~, we'd rename the directory itself. Mostly that would be ~{{cookiecutter.project_slug}}~
+- Testing & Iteration once the cookiecutter is developed:
   - ~cookiecutter . --output-dir /tmp --replay --overwrite-if-exists~
 * Others
 - See the [[https://github.com/orgs/community/discussions/5336
