@@ -27,6 +27,13 @@ Following is about creating and maintaining a new cookie cutter.
   - Files which themselves have templating, eg. ~Justfile~
 - Testing & Iteration once the cookiecutter is developed
   - ~cookiecutter . --output-dir /tmp --replay --overwrite-if-exists~
+
+- Documentation
+  #+begin_src
+Path to cookiecutter: <PATH_HERE>
+
+Can you read everything inside this directory, understand the project structure and everything and create a file based on this rule at /docs/for_ai/rules/by-tool/cookiecutter/technical_context.md
+  #+end_src
 * Others
 - See the [[https://github.com/orgs/community/discussions/5336
 ][sorry state of github templates]]

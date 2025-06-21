@@ -20,6 +20,14 @@ When creating a Cookiecutter template:
     *   Tool Usage Patterns
     *   Components/Code Organization
 
+## Caution
+
+**This documentation is for the generated project, not the Cookiecutter template.**
+
+When writing the content for `TECHNICAL_CONTEXT_FOR_AI_DELETE_AFTER_USE.md`, do not include instructions on how to use the Cookiecutter template itself. This file is intended to live inside the generated project and should only contain technical context relevant to that project.
+
+Instructions for using the Cookiecutter template should be in the template's `README.md` or other dedicated documentation outside of the `{{cookiecutter.project_slug}}` directory. The creation and maintenance of the template's own documentation is handled separately and is outside the scope of this rule.
+
 ## User Message
 
 When a user generates a project using this Cookiecutter template, the `TECHNICAL_CONTEXT_FOR_AI_DELETE_AFTER_USE.md` file will be present in their new project. The file should contain the following message at the top:
