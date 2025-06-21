@@ -1,0 +1,9 @@
+default:
+	@just --list
+
+check:
+	cruft check
+
+# update ai docs (use v to view changes)
+update:
+	GIT_PAGER=cat cruft update
