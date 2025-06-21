@@ -1,3 +1,5 @@
+project_slug = "dummy_project_name" # this should match cookiecutter.json
+
 default:
 	@just --list
 
@@ -5,33 +7,33 @@ test-run:
 	cookiecutter . --output-dir . --overwrite-if-exists
 
 _check:
-	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just test
-	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just check
-	cd dummy_project_name && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just fix
+	cd {{project_slug}} && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just test
+	cd {{project_slug}} && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just check
+	cd {{project_slug}} && NIXPKGS_ALLOW_UNFREE=1 nix develop --impure --command just fix
 
 replace: _check
 	#!/bin/bash
 	set -eu
 
-	cd dummy_project_name
-	rg -l "dummy_project_name" | xargs -r sd "dummy_project_name" "{{ '{{' }}cookiecutter.project_slug}}"
+	cd {{project_slug}}
+	rg -l "{{project_slug}}" | xargs -r sd "{{project_slug}}" "{{ '{{' }}cookiecutter.project_slug}}"
 	rg -l "dummy" | xargs -r sd "dummy" "{{ '{{' }}cookiecutter.python_package_name}}"
 	mv src/dummy "src/{{ '{{' }}cookiecutter.python_package_name}}"
 
 	echo "might have to fix few replacements manually, eg. Justfile(we do have a AI rule about that)"
 
 diff-name-only:
-	git clean -f -X -d dummy_project_name/
+	git clean -f -X -d {{project_slug}}/
 	git clean -f -X -d "./{{ '{{' }}cookiecutter.project_slug}}"
-	git diff --no-index --find-renames --name-status "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
+	git diff --no-index --find-renames --name-status "./{{ '{{' }}cookiecutter.project_slug}}" {{project_slug}}/
 
 diff:
-	git clean -f -X -d dummy_project_name/
+	git clean -f -X -d {{project_slug}}/
 	git clean -f -X -d "./{{ '{{' }}cookiecutter.project_slug}}"
-	git diff --no-index --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
+	git diff --no-index --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" {{project_slug}}/
 
 # only run this when you're finally ready to migrate the new template after
 # manually checking the diff
 move:
 	rm -rf "{{ '{{' }}cookiecutter.project_slug}}"
-	mv "dummy_project_name" "{{ '{{' }}cookiecutter.project_slug}}"
+	mv "{{project_slug}}" "{{ '{{' }}cookiecutter.project_slug}}"
