@@ -1,0 +1,33 @@
+justfile_project_slug := "{{cookiecutter.inner_project_slug}}" # should match cookiecutter.json:project_slug variable
+
+default:
+	@just --list
+
+test-run:
+	cookiecutter . --output-dir . --overwrite-if-exists
+
+_check:
+	echo "TODO: If your project has test/formatting/linting checks, run them here"
+
+# The replace recipe needs to be customized for your specific cookiecutter.
+# This is a placeholder implementation.
+replace: _check
+	#!/bin/bash
+	set -eu
+
+	cd {% raw %}{{justfile_project_slug}}{% endraw %}
+	# EXAMPLE: Replace placeholder in files
+	# rg -l "dummy_project_name" | xargs -r sd "dummy_project_name" "{{ '{{' }}cookiecutter.project_slug}}"
+
+	echo "TODO: Implement your replacement logic here."
+
+diff:
+	git clean -f -X -d {% raw %}{{justfile_project_slug}}{% endraw %}/
+	git clean -f -X -d "./{{ '{{' }}cookiecutter.project_slug}}"
+	git diff --no-index --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" {% raw %}{{justfile_project_slug}}{% endraw %}/
+
+# ONLY run this when you're finally ready to migrate
+# the new template after manually checking the diff
+move:
+	rm -rf "{{ '{{' }}cookiecutter.project_slug}}"
+	mv "{% raw %}{{justfile_project_slug}}{% endraw %}" "{{ '{{' }}cookiecutter.project_slug}}"

@@ -1,0 +1,3 @@
+{
+  "project_slug": "{{cookiecutter.inner_project_slug}}"
+}

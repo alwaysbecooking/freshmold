@@ -1,8 +1,8 @@
-* fast-api cookiecutter
+* {{cookiecutter.project_slug}} cookiecutter
 ** Usage
 #+begin_src shell
 cookiecutter \
 --overwrite-if-exists \
 https://github.com/alwaysbecooking/freshmold.git \
---directory="by-language/python/fast-api"
+--directory="TODO:FILL_THE_PATH_BASED_ON_WHERE_YOU_CREATED_THE_COOKIECUTTER"
 #+end_src
