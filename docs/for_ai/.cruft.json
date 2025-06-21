@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/alwaysbecooking/freshmold.git",
-  "commit": "d14d4a01c8646dfe69c5b31517cec2af41f83630",
+  "commit": "e9c9d4a99859131b30fd9b853834d4bd86fb0119",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -12,7 +12,7 @@
         "rules/by-*"
       ],
       "_template": "https://github.com/alwaysbecooking/freshmold.git",
-      "_commit": "d14d4a01c8646dfe69c5b31517cec2af41f83630"
+      "_commit": "e9c9d4a99859131b30fd9b853834d4bd86fb0119"
     }
   },
   "directory": "misc/ai-rules"
