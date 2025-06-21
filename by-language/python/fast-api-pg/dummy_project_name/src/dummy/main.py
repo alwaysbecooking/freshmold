@@ -6,6 +6,8 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 
+from dummy.db.connection import DatabaseClient
+
 from .config import settings
 from .routers import (
     cash,
@@ -25,8 +27,24 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     Initializes and shuts down application resources.
     """
+    db_client = await DatabaseClient.create(
+        min_size=settings.db_min_size,
+        max_size=settings.db_max_size,
+        conn_str=settings.db_connection_string,
+    )
+    # dbQuery = AdHocQueries(db_client=db_client)
+    await db_client.seed()
+
+    app.state.dbClient = db_client
+    # app.state.dbQuery = dbQuery
+    # app.state.scraperQuery = scraperQuery
+
     logger.info("initializing application")
     yield
+
+    if hasattr(app.state, "dbClient"):
+        await app.state.dbClient.close()
+
     logger.info("shutdown complete")
 
 
