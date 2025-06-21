@@ -3,8 +3,8 @@ from enum import StrEnum
 
 from pydantic_settings import BaseSettings
 
-
 app_prefix = "{{cookiecutter.python_package_name}}_".upper()
+
 
 class Environment(StrEnum):
     """Enumeration for application environments."""
@@ -30,10 +30,16 @@ class Settings(BaseSettings):
 
     # API settings
     cors_allow_origins: list[str] = os.getenv(
-        f"{app_prefix}CORS_ALLOW_ORIGINS", "*"
+        f"{app_prefix}CORS_ALLOW_ORIGINS",
+        "*",
     ).split(",")
     api_v1_prefix: str = os.getenv(f"{app_prefix}API_V1_PREFIX", "/api/v1")
-    host: str = os.getenv(f"{app_prefix}HOST", "0.0.0.0")  # noqa: S104 Binding to all interfaces is intentional for deployment behind a reverse proxy.
+    host: str = os.getenv(
+        f"{app_prefix}HOST",
+        # binding to all interfaces is intentional for deployment behind a
+        # reverse proxy.
+        "0.0.0.0",  # noqa: S104 # nosec B104
+    )
     port: int = int(os.getenv(f"{app_prefix}PORT", "8000"))
 
 

@@ -53,27 +53,27 @@ fix-force: _fix-lint-force _fix-format
   uv run server
 
 docker-build:
-	IMAGE_NAME={% raw %}{{image_repo}}{% endraw %}/{% raw %}{{image_name}}{% endraw %} \
-	IMAGE_TAG={% raw %}{{image_tag}}{% endraw %} \
-	nix build -o ./results/{% raw %}{{image_file}}{% endraw %} \
+	IMAGE_NAME={{image_repo}}/{{image_name}} \
+	IMAGE_TAG={{image_tag}} \
+	nix build -o ./results/{{image_file}} \
 	--impure --show-trace .#{{cookiecutter.project_slug}}_docker
 
 docker-load:
-	docker load < ./results/{% raw %}{{image_file}}{% endraw %}
+	docker load < ./results/{{image_file}}
 
 docker-run:
 	docker run --rm \
-	-it {% raw %}{{image_repo}}{% endraw %}/{% raw %}{{image_name}}{% endraw %}:{% raw %}{{image_tag}}{% endraw %}
+	-it {{image_repo}}/{{image_name}}:{{image_tag}}
 
 docker-push:
-	docker push {% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{image_name}}{% endraw %}:{% raw %}{{image_tag}}{% endraw %}
+	docker push {{ image_repo }}/{{image_name}}:{{image_tag}}
 
 docker-manifest-push:
-	docker pull "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{image_name}}{% endraw %}:{% raw %}{{image_id}}{% endraw %}_amd64"
-	docker pull "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{image_name}}{% endraw %}:{% raw %}{{image_id}}{% endraw %}_arm64"
+	docker pull "{{ image_repo }}/{{image_name}}:{{image_id}}_amd64"
+	docker pull "{{ image_repo }}/{{image_name}}:{{image_id}}_arm64"
 
-	docker manifest create "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{ image_name }}{% endraw %}:{% raw %}{{ image_id }}{% endraw %}" \
-	--amend "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{ image_name }}{% endraw %}:{% raw %}{{ image_id }}{% endraw %}_amd64" \
-	--amend "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{ image_name }}{% endraw %}:{% raw %}{{ image_id }}{% endraw %}_arm64"
+	docker manifest create "{{ image_repo }}/{{ image_name }}:{{ image_id }}" \
+	--amend "{{ image_repo }}/{{ image_name }}:{{ image_id }}_amd64" \
+	--amend "{{ image_repo }}/{{ image_name }}:{{ image_id }}_arm64"
 
-	docker manifest push "{% raw %}{{ image_repo }}{% endraw %}/{% raw %}{{ image_name }}{% endraw %}:{% raw %}{{ image_id }}{% endraw %}"
+	docker manifest push "{{ image_repo }}/{{ image_name }}:{{ image_id }}"

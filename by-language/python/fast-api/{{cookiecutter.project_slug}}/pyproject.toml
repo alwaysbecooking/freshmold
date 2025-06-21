@@ -31,6 +31,8 @@ mock_use_standalone_module = true
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "W", "C90", "N", "D", "S", "B", "A", "COM", "LOG", "T20", "PYI", "PT", "RSE", "SLF", "RUF"]
 ignore = ["D100", "D104", "D105", "D107", "D203", "D212", "D415"]
 
