@@ -1,4 +1,8 @@
-* Usage
-#+begin_src
-cookiecutter --overwrite-if-exists https://github.com/alwaysbecooking/freshmold.git --directory="by-language/python/fast-api"
+* fast-api-pg cookiecutter
+** Usage
+#+begin_src shell
+cookiecutter \
+--overwrite-if-exists \
+https://github.com/alwaysbecooking/freshmold.git \
+--directory="by-language/python/fast-api-pg"
 #+end_src
