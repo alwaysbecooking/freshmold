@@ -11,7 +11,7 @@ When creating new rules:
 1. All new rules MUST be created in the `{{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/rules` directory
 2. Each rule MUST be in a separate file
 3. Rule files MUST use the `.md` extension
-4. Rule files MUST follow the naming convention: `[rule-name].mdc`
+4. Rule files MUST follow the naming convention: `[rule-name].md`
 5. Rule files MUST contain proper markdown formatting
 
 ## Implementation
@@ -31,9 +31,9 @@ When creating new rules:
 ✅ Correct:
 ```
 {{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/rules/
-  ├── rules-location.mdc
-  ├── another-rule.mdc
-  └── third-rule.mdc
+  ├── rules-location.md
+  ├── another-rule.md
+  └── third-rule.md
 ```
 
 ❌ Incorrect:

@@ -1,42 +1,62 @@
-* AI-RULES
-Cookie cutter to add AI rules and files for various AI agents.
+* AI Rules Cookiecutter
+This cookiecutter provides a standardized set of rules for various AI coding assistants. It helps you manage and update these rules across your projects using ~cruft~.
 
-Currently tested with:
-- cline
-- windsurf
-
-If you're looking for how to do AI assisted coding(this repo follows all the ideas mentioned here), check:
+This project focuses on managing the *rule files*. For a deeper guide on the philosophy and techniques of AI-assisted development that this repository follows, please see [[https://github.com/alwaysbecooking/freshmold/blob/main/misc/ai-rules/AI_PLEASE_TAKE_MY_JOB.org][AI, Please Take My Job]].
 
 ** Usage
 This project-agnostic cookiecutter can be used in a new or existing repository.
+
 *** Setup
-First ~cd~ inside the directory where you store project level docs. Usually ~/docs~. And run run the following:
+1. Navigate to your project's root directory.
+2. Run the following command. You will be prompted to enter two values:
+   - ~project_slug~: The name for the new directory where the AI rules will be stored (e.g., ~for_ai~).
+   - ~docs_path~: The path to your project's existing documentation directory, relative to the project root (e.g., ~docs~). This is crucial for ensuring the paths within the generated rules are correct.
+
 #+begin_src shell
-# NOTE: docs_path should be relative to repository root
 cruft create \
 --overwrite-if-exists \
 https://github.com/alwaysbecooking/freshmold.git \
 --directory="misc/ai-rules"
 #+end_src
-- This will create a ~.cruft.json~ file in your newly created directory. You should check this in version control.
-- After the first fetch (~cruft create~), you should manually skim through all the rules and delete the ones that you do not need.
-*** Management/Update
-- Use ~cruft check~, ~cruft diff~ and ~cruft update~. You might need to use ~GIT_PAGER=cat cruft update~ to get the diff view correct. While doing so you have the option to skip new rules, from the diff etc.
-- Try avoiding editing the rules that you've fetched directly, instead edit them upstream and run ~cruft update~.
-  - If you by any chance edit the same line in your working repository as the updated rules in upsteam happens, ~cruf~ will not raise an conflict instead it'll have the conflict showing up directly in the file. Which you have to fix manually. This shows up in git diff so not the biggest problem.
-*** Using these rules with your AI editor
-- Use the rules as contexts (~@mention~) when trying to enforce certain rule. Otherwise The management of the rules is specific to each AI agent, eg. Cursor follows different convention, windsurf follows a different convention, Amp is different etc. So you can adjust things accordingly. For common rules, I put things under ~.clinerules/~ directory.
-- If you're using a monorepo, you'd be switching back and forth between the rules
 
-Following are ~Justfile/Makefile~ entries based on whichever agent you're using: (Copy manually as per need)
+This will create:
+- A directory containing the AI rules at the path specified by ~project_slug~.
+- A ~.cruft.json~ file inside that directory. You should commit this file to version control to track updates.
+
+After the initial setup, it's recommended to review the generated rules and delete any that are not relevant to your project.
+
+*** Management and Updates
+To keep your rules up-to-date with the upstream template, use the following ~cruft~ commands from your project root:
+
+- ~cruft check~: See if updates are available.
+- ~cruft diff~: View the differences between your local rules and the template.
+- ~cruft update~: Apply the updates. (you might have to set ~GIT_PAGER=cat~)
+
+If you have edited a rule file locally that also has an upstream change, ~cruft~ will insert conflict markers directly into the file. You will need to resolve these manually, much like a git merge conflict.
+
+It's best to avoid editing the fetched rules directly. Instead, contribute changes to the upstream repository and then run ~cruft update~.
+
+** Integrating with Your AI Agent
+This cookiecutter only manages the rule files. How you integrate them is specific to the AI agent you use. The following sections provide general guidance and examples.
+
+*** Example: ~cline~ Setup
+Many AI agents, like ~cline~, use a dedicated directory (e.g., ~.clinerules~) to load rules. You can create a ~Justfile~ or ~Makefile~ to automate copying the rules from your ~docs_path~.
+
+Here is a sample ~Justfile~ recipe. You will need to modify the paths to match your project's structure.
+
 #+begin_src makefile
+# Copies meta-rules into the .clinerules directory for cline to use.
 cline-meta-ai-rules:
-	mkdir -p .clinerules
-	rg -F "^.clinerules/$" .gitignore > /dev/null || echo ".clinerules/" >> .gitignore
-	cp ./docs/for_ai/rules/meta_* ./.clinerules/
+	@mkdir -p .clinerules
+	@rg -F "^.clinerules/$" .gitignore > /dev/null || echo ".clinerules/" >> .gitignore
+	@cp ./docs/for_ai/rules/meta_* ./.clinerules/
 #+end_src
-**** AI Ignore files
-AI agents would usually have a file which you can use to instruct about files it should avoid reading. Put the following in it. Eg. for cline, that ~.clineignore~
+
+*** AI Ignore Files
+Most AI agents support an ignore file (e.g., ~.clineignore~, ~.windsurfignore~) to prevent them from reading certain files and directories. It is highly recommended to create one at your project root.
+
+Here is a standard set of patterns to include:
+
 #+begin_src
 # Dependencies
 node_modules/
