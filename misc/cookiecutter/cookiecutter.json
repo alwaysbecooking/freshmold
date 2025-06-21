@@ -1,4 +1,5 @@
 {
   "project_slug": "example_cookie_cutter",
-  "inner_project_slug": "dummy_project_name"
+  "inner_project_slug": "dummy_project_name",
+  "_copy_without_render": ["Justfile"]
 }
