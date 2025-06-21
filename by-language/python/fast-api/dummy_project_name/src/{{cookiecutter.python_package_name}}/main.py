@@ -113,7 +113,7 @@ def main() -> None:
     """Run the FastAPI application using Uvicorn."""
     # NOTE: uvicorn handles the signals for us
     uvicorn.run(
-        "dummy.main:app",
+        "{{cookiecutter.python_package_name}}.main:app",
         host=settings.host,
         port=settings.port,
         reload=settings.reload,

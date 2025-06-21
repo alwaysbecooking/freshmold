@@ -1,5 +1,5 @@
 image_repo := "some_repository"
-image_name := "dummy_project_name"
+image_name := "{{cookiecutter.project_slug}}"
 image_id := "latest"
 platform := if `nix eval --impure --raw --expr 'builtins.currentSystem'` == "x86_64-linux" { "amd64" } else { "arm64" }
 image_tag := image_id + "_" + platform
@@ -49,14 +49,14 @@ fix: _fix-lint _fix-format
 fix-force: _fix-lint-force _fix-format
 
 # run the worker
-dummy_project_name-server:
+{{cookiecutter.project_slug}}-server:
   uv run server
 
 docker-build:
 	IMAGE_NAME={{image_repo}}/{{image_name}} \
 	IMAGE_TAG={{image_tag}} \
 	nix build -o ./results/{{image_file}} \
-	--impure --show-trace .#dummy_project_name_docker
+	--impure --show-trace .#{{cookiecutter.project_slug}}_docker
 
 docker-load:
 	docker load < ./results/{{image_file}}

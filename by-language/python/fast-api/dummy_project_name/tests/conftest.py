@@ -18,5 +18,5 @@ import pytest
 
 @pytest.fixture
 def sample_fixture() -> str:
-    """Provide sample dummy data for tests."""
+    """Provide sample {{cookiecutter.python_package_name}} data for tests."""
     return "sample_data"

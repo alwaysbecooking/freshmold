@@ -3,7 +3,7 @@ from enum import StrEnum
 
 from pydantic_settings import BaseSettings
 
-app_prefix = "dummy_".upper()
+app_prefix = "{{cookiecutter.python_package_name}}_".upper()
 
 
 class Environment(StrEnum):
