@@ -1,0 +1,19 @@
+{
+  "template": "https://github.com/alwaysbecooking/freshmold.git",
+  "commit": "7c099f9814e396e4057f564f446ccadbf959d6a6",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_slug": "for_ai",
+      "docs_path": "docs",
+      "_copy_without_render": [
+        "memory_bank",
+        "reference",
+        "rules/by-*"
+      ],
+      "_template": "https://github.com/alwaysbecooking/freshmold.git",
+      "_commit": "7c099f9814e396e4057f564f446ccadbf959d6a6"
+    }
+  },
+  "directory": "misc/ai-rules"
+}
