@@ -44,6 +44,23 @@ Path to cookiecutter templated directory: <PATH_HERE>/{{cookiecutter.project_slu
 Read everything inside this directory to understand the project structure, and then create the documentation based on the rule provided.
 #+end_src
 
+** The Canonical Example: ~misc/cookiecutter~
+
+The directory [[file:misc/cookiecutter/]] serves as the canonical, meta-template for creating new cookiecutters in this repository. It is a working example of the advanced workflow described below. When creating a new cookiecutter, it is highly recommended to copy and adapt this structure.
+
+*** How to Use the Meta-Template
+
+To create a new cookiecutter, first navigate to the directory where it should be located (e.g., ~cd by-language/python/~). Then, run the following command to bootstrap the project using the meta-template directly from the repository:
+
+#+begin_src shell
+cookiecutter \
+--overwrite-if-exists \
+https://github.com/alwaysbecooking/freshmold.git \
+--directory="misc/cookiecutter"
+#+end_src
+
+This command will prompt you for the values defined in the meta-template's ~cookiecutter.json~. After it finishes, you will have a new directory containing a ready-to-use structure for your own cookiecutter, complete with the ~Justfile~ needed for the advanced development workflow.
+
 ** Advanced Workflow: Using a Justfile for Template Development
 *** The Challenge
 

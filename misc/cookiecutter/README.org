@@ -1,0 +1,8 @@
+* cookiecutter cookiecutter (meta)
+** Usage
+#+begin_src shell
+cookiecutter \
+--overwrite-if-exists \
+https://github.com/alwaysbecooking/freshmold.git \
+--directory="misc/cookiecutter"
+#+end_src
