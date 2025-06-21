@@ -4,6 +4,8 @@ from enum import StrEnum
 from pydantic_settings import BaseSettings
 
 
+app_prefix = "{{cookiecutter.python_package_name}}_".upper()
+
 class Environment(StrEnum):
     """Enumeration for application environments."""
 
@@ -14,7 +16,7 @@ class Environment(StrEnum):
 class Settings(BaseSettings):
     """Application settings."""
 
-    app_env: str = os.getenv("APP_ENV", Environment.DEVELOPMENT)
+    app_env: str = os.getenv(f"{app_prefix}APP_ENV", Environment.DEVELOPMENT)
     debug: bool = app_env == Environment.DEVELOPMENT
     reload: bool = app_env == Environment.DEVELOPMENT
     proxy_header: bool = app_env == Environment.PRODUCTION
@@ -24,11 +26,15 @@ class Settings(BaseSettings):
     # TODO: The reverse proxy IP setting needs be scoped down from "*", but
     # there's some issue with my caddy reverse proxy so there needs to be some
     # more testing before I can ensure this is working as expected.
-    trusted_ip: str = os.getenv("REVERSE_PROXY_IP", "*")
+    trusted_ip: str = os.getenv(f"{app_prefix}REVERSE_PROXY_IP", "*")
 
     # API settings
-    cors_allow_origins: list[str] = os.getenv("CORS_ALLOW_ORIGINS", "*").split(",")
-    api_v1_prefix: str = os.getenv("API_V1_PREFIX", "/api/v1")
+    cors_allow_origins: list[str] = os.getenv(
+        f"{app_prefix}CORS_ALLOW_ORIGINS", "*"
+    ).split(",")
+    api_v1_prefix: str = os.getenv(f"{app_prefix}API_V1_PREFIX", "/api/v1")
+    host: str = os.getenv(f"{app_prefix}HOST", "0.0.0.0")  # noqa: S104 Binding to all interfaces is intentional for deployment behind a reverse proxy.
+    port: int = int(os.getenv(f"{app_prefix}PORT", "8000"))
 
 
 settings = Settings()

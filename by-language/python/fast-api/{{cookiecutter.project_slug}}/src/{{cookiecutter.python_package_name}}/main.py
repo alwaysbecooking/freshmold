@@ -1,10 +1,10 @@
 import time
 from contextlib import asynccontextmanager
-from typing import Dict
+from typing import AsyncGenerator, Callable, Dict
 
 import uvicorn
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from .config import settings
 from .routers import (
@@ -19,7 +19,7 @@ HEALTH_CHECK_ENDPOINT = "/healthz"
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """
     Context manager for managing the lifespan of the FastAPI application.
 
@@ -47,7 +47,7 @@ app = FastAPI(
 
 
 @app.middleware("http")
-async def log_requests(request: Request, call_next):
+async def log_requests(request: Request, call_next: Callable) -> Response:
     """
     Middleware to log incoming HTTP requests.
 
@@ -69,7 +69,7 @@ async def log_requests(request: Request, call_next):
 
 
 @app.middleware("http")
-async def add_security_headers(request: Request, call_next):
+async def add_security_headers(request: Request, call_next: Callable) -> Response:
     """Middleware to add security headers to HTTP responses."""
     response = await call_next(request)
     if settings.enable_security_headers:
@@ -83,7 +83,7 @@ async def add_security_headers(request: Request, call_next):
 
 
 @app.exception_handler(Exception)
-async def global_exception_handler(_: Request, exc: Exception):
+async def global_exception_handler(_: Request, exc: Exception) -> JSONResponse:
     """Global exception handler to catch and log unhandled exceptions."""
     # logger.info(f"Unhandled exception: {str(exc)}", exc_info=exc)
     logger.info(f"Unhandled exception: {exc!s}")
@@ -91,7 +91,7 @@ async def global_exception_handler(_: Request, exc: Exception):
 
 
 @app.get(HEALTH_CHECK_ENDPOINT)
-async def health_check():
+async def health_check() -> Dict:
     """Health check endpoint."""
     return {
         "status": "healthy",
@@ -114,9 +114,8 @@ def main() -> None:
     # NOTE: uvicorn handles the signals for us
     uvicorn.run(
         "{{cookiecutter.python_package_name}}.main:app",
-        host="0.0.0.0",  # noqa: S104
-        # S104: intentional for deployment behind a reverse proxy.
-        port=8000,
+        host=settings.host,
+        port=settings.port,
         reload=settings.reload,
         access_log=False,
         log_level=settings.log_level.lower(),

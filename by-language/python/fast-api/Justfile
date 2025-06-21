@@ -1,19 +1,36 @@
 default:
 	@just --list
 
+move:
+	rm -rf "{{ '{{' }}cookiecutter.project_slug}}"
+	mv "dummy_project_name" "{{ '{{' }}cookiecutter.project_slug}}"
+
+test-run:
+	cookiecutter . --output-dir . --overwrite-if-exists
+
 replace:
 	#!/bin/bash
 	set -eu
 
 	cd dummy_project_name
-	rg -l "dummy_project_name" | xargs -r sd "dummy_project_name" "{{cookiecutter.project_slug}}"
-	rg -l "dummy" | xargs -r sd "dummy" "{{cookiecutter.python_package_name}}"
-	mv src/dummy "src/{{cookiecutter.python_package_name}}"
+	rg -l "dummy_project_name" | xargs -r sd "dummy_project_name" "{{ '{{' }}cookiecutter.project_slug}}"
+	rg -l "dummy" | xargs -r sd "dummy" "{{ '{{' }}cookiecutter.python_package_name}}"
+	mv src/dummy "src/{{ '{{' }}cookiecutter.python_package_name}}"
 
-	echo "you might have to fix few replacements manually, eg. Justfile(we do have a AI rule about that)"
+	echo "might have to fix few replacements manually, eg. Justfile(we do have a AI rule about that)"
+
+diff-name-only:
+	@rm -rf dummy_project_name/.direnv/
+	@rm -rf dummy_project_name/.mypy_cache
+	@rm -rf dummy_project_name/.ruff_cache
+	@rm -rf dummy_project_name/.venv
+	@rm -rf dummy_project_name/.envrc
+	git diff --no-index --find-renames --name-status "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/
 
 diff:
-	#!/bin/bash
-	set -eu
-
-	git diff --name-only --no-index dummy_project_name/ "./{{cookiecutter.project_slug}}"
+	@rm -rf dummy_project_name/.direnv/
+	@rm -rf dummy_project_name/.mypy_cache
+	@rm -rf dummy_project_name/.ruff_cache
+	@rm -rf dummy_project_name/.venv
+	@rm -rf dummy_project_name/.envrc
+	git diff --no-index --find-renames "./{{ '{{' }}cookiecutter.project_slug}}" dummy_project_name/

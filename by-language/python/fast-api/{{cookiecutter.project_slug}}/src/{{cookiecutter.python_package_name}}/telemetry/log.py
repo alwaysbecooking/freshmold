@@ -17,7 +17,7 @@ from structlog.typing import Processor
 # logger = get_logger(__name__)
 
 
-def setup_stdlogger():
+def setup_stdlogger() -> None:
     """Set up standard logging configuration."""
     datefmt = "%d-%m-%Y %I:%M:%S %p"
     format_str = "[%(name)s] [%(levelname)s] %(message)s"
@@ -67,7 +67,7 @@ def get_structlog_processors() -> Iterable[Processor]:
         ]
 
 
-def setup_structlog():
+def setup_structlog() -> None:
     """Configure structlog."""
     structlog.configure(
         logger_factory=structlog.stdlib.LoggerFactory(),
@@ -77,13 +77,13 @@ def setup_structlog():
     )
 
 
-def init_logger():
+def init_logger() -> None:
     """Initialize both standard logging and structlog."""
     setup_stdlogger()
     setup_structlog()
 
 
-def get_logger(name: Optional[str] = None):
+def get_logger(name: Optional[str] = None) -> structlog.BoundLogger:
     """
     Get a structlog logger instance.
 
