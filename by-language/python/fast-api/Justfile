@@ -1,2 +1,12 @@
 default:
 	@just --list
+
+replace:
+	#!/bin/bash -c
+	set -xeu
+
+	cd dummy_project_name
+	rg -l "dummy_project_name" | xargs sd "dummy_project_name" "{{{{cookiecutter.project_slug}}}}"
+	rg -l "dummy" | xargs sd "dummy" "{{{{cookiecutter.python_package_name}}}}"
+	mv src/dummy "src/{{{{cookiecutter.python_package_name}}}}"
+	echo "you might have to fix few replacements manually, eg. Justfile(we do have a AI rule about that)"
