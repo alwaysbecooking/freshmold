@@ -2,7 +2,7 @@
 
 The AI's memory resets completely between sessions. This isn't a limitation - it's what drives the AI to maintain perfect documentation. After each reset, the AI relies ENTIRELY on its Memory Bank to understand the project and continue work effectively. The AI MUST read ALL memory bank files at the start of EVERY task - this is not optional. If the AI is told to refresh its memory, it should revisit the memory bank.
 
-Location of memory_bank: `@docs/for_ai/memory_bank`
+Location of memory_bank: `@docs/{{cookiecutter.project_slug}}/memory_bank`
 
 
 ## Memory Bank Structure

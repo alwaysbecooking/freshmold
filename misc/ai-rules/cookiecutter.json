@@ -1,6 +1,5 @@
 {
+  "project_slug": "for_ai",
   "docs_path": "docs",
-  "_copy_without_render": [
-    "for_ai/*"
-  ]
+  "_copy_without_render": []
 }

@@ -1,13 +1,13 @@
 ---
 description: Rule for Feature Brainstorming File Location and Content
-globs: docs/for_ai/reference/feature_brainstorm/*.md
+globs: {{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/reference/feature_brainstorm/*.md
 alwaysApply: false
 ---
 ## Description
 This rule defines the standard location, naming convention, and content guidelines for feature brainstorming files. These files capture the requirements and implementation ideas discussed during feature development brainstorming sessions.
 
 ## Rule
-1.  **Location:** All feature brainstorming files MUST be created in the `docs/for_ai/reference/feature_brainstorm/` directory.
+1.  **Location:** All feature brainstorming files MUST be created in the `{{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/reference/feature_brainstorm/` directory.
 2.  **Naming Convention:** Files MUST follow the naming convention: `<feature_namespace>_<feature_name>.md`. Replace `<feature_namespace>` and `<feature_name>` with relevant identifiers for the feature.
   - namespace can be anything really, this is just and differentiator. eg. just figure out the context have have it. This is useful if we have the same feature in multiple places in the codebase, helps find things later.
 3.  **Purpose:** These files serve as a reference dump of requirements and implementation details derived from brainstorming discussions.
@@ -26,6 +26,6 @@ This rule defines the standard location, naming convention, and content guidelin
 
 ## Example
 A brainstorming session for a new user authentication feature within the 'auth' namespace might result in a file named:
-`docs/for_ai/reference/feature_brainstorm/auth_user_authentication.md`
+`{{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/reference/feature_brainstorm/auth_user_authentication.md`
 
 This file would contain the discussion summary, requirements, and potential implementation approaches.

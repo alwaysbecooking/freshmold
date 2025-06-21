@@ -10,8 +10,15 @@ If you're looking for how to do AI assisted coding(this repo follows all the ide
 ** Usage
 This project-agnostic cookiecutter can be used in a new or existing repository.
 *** Setup
-#+begin_src
+First ~cd~ inside the directory where you store project level docs. Usually ~/docs~. And run run the following:
+#+begin_src shell
 cookiecutter --overwrite-if-exists https://github.com/alwaysbecooking/freshmold.git --directory="misc/ai-rules"
+
+# NOTE: docs_path should be relative to repository root
+cruft create \
+--overwrite-if-exists \
+https://github.com/alwaysbecooking/freshmold.git \
+--directory="misc/ai-rules"
 #+end_src
 Make sure the overwites are the things that you want, if not edit the git-diff manually.
 *** Management
