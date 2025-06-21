@@ -20,8 +20,11 @@ https://github.com/alwaysbecooking/freshmold.git \
 #+end_src
 - This will create a ~.cruft.json~ file in your newly created directory. You should check this in version control.
 - After the first fetch (~cruft create~), you should manually skim through all the rules and delete the ones that you do not need.
+*** Management/Update
 - Use ~cruft check~, ~cruft diff~ and ~cruft update~. You might need to use ~GIT_PAGER=cat cruft update~ to get the diff view correct. While doing so you have the option to skip new rules, from the diff etc.
-*** Management
+- Try avoiding editing the rules that you've fetched directly, instead edit them upstream and run ~cruft update~.
+  - If you by any chance edit the same line in your working repository as the updated rules in upsteam happens, ~cruf~ will not raise an conflict instead it'll have the conflict showing up directly in the file. Which you have to fix manually. This shows up in git diff so not the biggest problem.
+*** Using these rules with your AI editor
 - Use the rules as contexts (~@mention~) when trying to enforce certain rule. Otherwise The management of the rules is specific to each AI agent, eg. Cursor follows different convention, windsurf follows a different convention, Amp is different etc. So you can adjust things accordingly. For common rules, I put things under ~.clinerules/~ directory.
 - If you're using a monorepo, you'd be switching back and forth between the rules
 
@@ -61,6 +64,3 @@ node_modules/
 *.csv
 *.xlsx
 #+end_src
-*** Cleanup
-- If you don’t need support for certain AI agents, feel free to delete their related files after generation.
-*** TODO Keeping things in sync

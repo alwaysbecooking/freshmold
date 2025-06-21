@@ -3,11 +3,9 @@ description: Rule for Feature Brainstorming File Location and Content
 globs: {{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/reference/feature_brainstorm/*.md
 alwaysApply: false
 ---
-poop
 ## Description
 This rule defines the standard location, naming convention, and content guidelines for feature brainstorming files. These files capture the requirements and implementation ideas discussed during feature development brainstorming sessions.
 
-something else
 ## Rule
 1.  **Location:** All feature brainstorming files MUST be created in the `{{cookiecutter.docs_path}}/{{cookiecutter.project_slug}}/reference/feature_brainstorm/` directory.
 2.  **Naming Convention:** Files MUST follow the naming convention: `<feature_namespace>_<feature_name>.md`. Replace `<feature_namespace>` and `<feature_name>` with relevant identifiers for the feature.
