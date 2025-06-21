@@ -1,39 +1,38 @@
-* freshmodl
+* freshmold
+
+A collection of personal, opinionated cookiecutter templates.
+
+** Philosophy
+
+This project uses two different tools for managing templates, each for a specific purpose:
+
+- *cookiecutter* is used for bootstrapping new projects. Once a project is created, it is independent and does not receive updates from the original template. This is for projects where you want to "fire and forget."
+
+- *cruft* is used for managing shared, standardized components *within* an existing project. It allows these components (like a set of AI rules) to be updated from a central template over time. The ~misc/ai-rules~ template is an example of this approach.
+
 ** Requirements
-- https://cookiecutter.readthedocs.io
-- Most of the cookiecutters probably make use of nix, so having working knowledge of nix or willingness to lean into the intricacies of nix is assumed.
-- insanity (we need more insanity)
-** How I create and maintain these?
-#+begin_quote
-Whenever I find something worth adding to the original template while working on other projects I just update the template. Too bad it'll not update the downstream projects but I am making that tradeoff. I checked [[https://github.com/cruft/cruft][cruft]], but I think once a project takes off from a cookie-cutter/boilerplate, there's no looking back. Just keep making forward progress. There are some cases where consistency is important but the way I develop things that's not the case. So we use plain old cookiecutter.
-#+end_quote
-Following is about creating and maintaining a new cookie cutter.
-- Bootstrap
-  - Just create a directory with a ~cookiecutter.json~ file
-- Write
-  - Create a directory where the cookie cutter will live, name it anything.
-  - Just write a basic project that works (keep things consistent with some placeholders, so that they can be used to replace later)
-- Replacement
-  - Make sure the project is working with placeholder(usually "dummy")
-  - Then I just replace
-    - content: ~rg~ and ~sd~
-    - filenames/directories: manual
-  - Finally rename the cookie cutter directory to ~{{cookiecutter.project_slug}}~
-    - cookiecutter is designed to look for a single directory inside your repository that contains Jinja2 template syntax in its name.
-    - Once the initial placeholder is replaced with ~rg~ and ~sed~, we'd rename the directory itself.
-    - Mostly that would be ~{{cookiecutter.project_slug}}~
-- Gotchas
-  - "_copy_without_render"
-  - Files which themselves have templating, eg. ~Justfile~
-- Testing & Iteration once the cookiecutter is developed
-  - ~cookiecutter . --output-dir /tmp --replay --overwrite-if-exists~
 
-- Documentation
-  #+begin_src
-Path to cookiecutter: <PATH_HERE>
+- [[https://cookiecutter.readthedocs.io/en/stable/][cookiecutter]]
+- [[https://cruft.github.io/][cruft]] (for templates that support ongoing updates)
+- Many templates use [[https://nixos.org/][Nix]] for environment management. Familiarity with Nix is recommended.
 
-Can you read everything inside this directory, understand the project structure and everything and create a file based on this rule at /docs/for_ai/rules/by-tool/cookiecutter/technical_context.md
-  #+end_src
-* Others
-- See the [[https://github.com/orgs/community/discussions/5336
-][sorry state of github templates]]
+** Available Templates
+
+*** By Language
+
+- A collection of templates organized by programming language.
+  - /Browse templates.../
+
+*** Miscellaneous
+
+- A collection of templates for various purposes.
+  - *ai-rules* (uses ~cruft~): A template for adding a standardized set of AI assistant rules to a project. See the [[file:misc/ai-rules/README.org][ai-rules README]] for details.
+  - /Browse other templates.../
+
+** Contributing
+
+For instructions on how to create a new cookiecutter or maintain existing ones, please see the [[file:CONTRIBUTING.org][Contributing Guide]].
+
+** Other
+
+- See the [[https://github.com/orgs/community/discussions/5336][sorry state of github templates]].

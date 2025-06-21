@@ -1,0 +1,76 @@
+* Contributing to freshmold
+
+This guide is for maintaining and creating new cookiecutters within the ~freshmold~ repository.
+
+** How to Create and Maintain a New Cookiecutter
+
+*** 1. Bootstrap
+   - Start by creating a new directory for your cookiecutter.
+   - Add a ~cookiecutter.json~ file to the directory.
+
+*** 2. Write the Template
+   - Inside your new directory, create a subdirectory that will contain the template files. You can name it anything for now (e.g., ~my-template-dir~).
+   - Write a complete, working project. Use consistent placeholders for values that will be replaced by the cookiecutter. Ideally, this placeholder (e.g., ~dummy-project~) should match the default value you specify in ~cookiecutter.json~, as this simplifies testing.
+
+*** 3. Implement Placeholders
+   - Ensure the project works correctly with the initial placeholder values.
+   - Replace the placeholder content throughout the files. Using tools like ~rg~ and ~sd~ is recommended for this.
+     - Example: ~rg "dummy-project" | xargs sd "dummy-project" "{{cookiecutter.project_slug}}"~
+     - *Note*: This is a basic example. For a more robust and automated approach, see the **Advanced Workflow** section below which uses a ~Justfile~.
+   - Manually rename any files or directories that contain the placeholder.
+   - Finally, rename the template subdirectory itself to use Jinja2 syntax, typically ~{{cookiecutter.project_slug}}~. Cookiecutter is designed to find this specially-named directory.
+
+*** 4. Handle Templating Gotchas
+   - **Raw Templates**: For files that should not be rendered by Jinja2 (e.g., files that use ~{{ ... }}~ syntax themselves), list them under the ~_copy_without_render~ key in your ~cookiecutter.json~.
+     - Example: A ~Justfile~ that contains its own template variables.
+
+*** 5. Test and Iterate
+   - Use the following command to test your cookiecutter locally. This will generate the project in the ~/tmp~ directory, allowing you to inspect the output.
+     #+begin_src shell
+     cookiecutter . --output-dir /tmp --replay --overwrite-if-exists
+     #+end_src
+
+** How to Document a New Cookiecutter (AI-Assisted)
+
+This is a prompt template to guide an AI in generating documentation for a newly created cookiecutter.
+
+#+begin_src
+First, read the documentation generation rule at @<PATH_HERE> (/docs/for_ai/rules/by-tool/cookiecutter/technical_context.md).
+
+Now that you've read the rule, please generate documentation for the following cookiecutter.
+
+Path to cookiecutter templated directory: <PATH_HERE>/{{cookiecutter.project_slug}}
+
+Read everything inside this directory to understand the project structure, and then create the documentation based on the rule provided.
+#+end_src
+
+** Advanced Workflow: Using a Justfile for Template Development
+*** The Challenge
+
+Once a project is converted into a cookiecutter template with Jinja2 syntax (~{{ ... }}~), it can no longer be run or tested directly. This makes iterative development and maintenance difficult.
+
+*** The Solution: A ~Justfile~-based Workflow
+
+A more advanced approach is to use a ~Justfile~ within the cookiecutter directory itself to automate a development loop. The core idea is:
+
+1.  **Generate a "live" instance**: Create a temporary, runnable version of the project from the template.
+2.  **Develop and test**: Make your changes in this live instance.
+3.  **Convert back to template**: Run a script to replace the hardcoded values with the Jinja2 placeholders.
+4.  **Diff and verify**: Compare the updated template with the original to ensure the changes are correct.
+5.  **Finalize**: Replace the old template directory with the new one.
+
+*** Example: The ~fast-api~ Template Workflow
+
+The [[file:by-language/python/fast-api/Justfile][Justfile]] in the ~fast-api~ cookiecutter is a great example of this pattern. Here is a breakdown of its key recipes:
+
+- ~just test-run~: Generates a live instance of the project in a directory like ~dummy_project_name~. This directory is where you'll do your development.
+
+- ~just _check~ (and other development tasks): After making changes in the ~dummy_project_name~ directory, you can run tests, linters, etc. as you normally would.
+
+- ~just replace~: This is the key step to convert your changes back into a template. It finds the placeholder values (e.g., ~dummy_project_name~) and replaces them with the corresponding Jinja2 syntax (e.g., ~{{cookiecutter.project_slug}}~).
+
+- ~just diff~: Before finalizing, this recipe runs a ~git diff~ between the original template directory and your newly modified one. This is a crucial sanity check.
+
+- ~just move~: Once you've verified the diff, this command removes the old template directory and replaces it with your new one.
+
+While the specific recipes in a ~Justfile~ will vary from one cookiecutter to another, this general pattern is a recommended practice for any complex template in this repository.
